@@ -1,0 +1,79 @@
+<svg width="400" height="600" viewBox="0 0 400 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dark background with grid pattern -->
+  <rect width="400" height="600" fill="#0f172a"/>
+  
+  <!-- Grid pattern -->
+  <defs>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#1e293b" stroke-width="0.5" opacity="0.3"/>
+    </pattern>
+  </defs>
+  <rect width="400" height="600" fill="url(#grid)"/>
+  
+  <!-- Glowing blue human silhouette -->
+  <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Head -->
+  <circle cx="200" cy="100" r="45" fill="#3b82f6" opacity="0.8" filter="url(#glow)"/>
+  
+  <!-- Body -->
+  <rect x="150" y="145" width="100" height="150" fill="#3b82f6" opacity="0.8" filter="url(#glow)" rx="20"/>
+  
+  <!-- Arms -->
+  <rect x="100" y="160" width="40" height="120" fill="#3b82f6" opacity="0.8" filter="url(#glow)" rx="20"/>
+  <rect x="260" y="160" width="40" height="120" fill="#3b82f6" opacity="0.8" filter="url(#glow)" rx="20"/>
+  
+  <!-- Legs -->
+  <rect x="170" y="295" width="35" height="140" fill="#3b82f6" opacity="0.8" filter="url(#glow)" rx="17"/>
+  <rect x="195" y="295" width="35" height="140" fill="#3b82f6" opacity="0.8" filter="url(#glow)" rx="17"/>
+  
+  <!-- Feet -->
+  <ellipse cx="187" cy="450" rx="25" ry="20" fill="#3b82f6" opacity="0.8" filter="url(#glow)"/>
+  <ellipse cx="213" cy="450" rx="25" ry="20" fill="#3b82f6" opacity="0.8" filter="url(#glow)"/>
+  
+  <!-- Scanning line -->
+  <rect x="50" y="250" width="300" height="4" fill="#ffffff" opacity="0.9" filter="url(#glow)"/>
+  
+  <!-- Highlight areas -->
+  <circle cx="200" cy="100" r="35" fill="#60a5fa" opacity="0.4"/>
+  <rect x="160" y="155" width="80" height="130" fill="#60a5fa" opacity="0.4" rx="15"/>
+  
+  <!-- Pre-marked lesion positions -->
+  <!-- Head lesion -->
+  <circle cx="180" cy="90" r="6" fill="#ef4444" opacity="0.9">
+    <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="180" cy="90" r="3" fill="#ffffff" opacity="0.8"/>
+  
+  <!-- Chest lesion -->
+  <circle cx="200" cy="180" r="5" fill="#ef4444" opacity="0.9">
+    <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="200" cy="180" r="2.5" fill="#ffffff" opacity="0.8"/>
+  
+  <!-- Arm lesion -->
+  <circle cx="120" cy="200" r="4" fill="#ef4444" opacity="0.9">
+    <animate attributeName="opacity" values="0.9;0.5;0.9" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="120" cy="200" r="2" fill="#ffffff" opacity="0.8"/>
+  
+  <!-- Leg lesion -->
+  <circle cx="190" cy="350" r="5" fill="#ef4444" opacity="0.9">
+    <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2.2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="190" cy="350" r="2.5" fill="#ffffff" opacity="0.8"/>
+  
+  <!-- Back lesion -->
+  <circle cx="220" cy="220" r="4" fill="#ef4444" opacity="0.9">
+    <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2.8s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="220" cy="220" r="2" fill="#ffffff" opacity="0.8"/>
+</svg>

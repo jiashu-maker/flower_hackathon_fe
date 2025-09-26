@@ -1,0 +1,35 @@
+<svg width="400" height="600" viewBox="0 0 400 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="400" height="600" fill="#f8fafc"/>
+  
+  <!-- Head -->
+  <circle cx="200" cy="80" r="40" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2"/>
+  
+  <!-- Body -->
+  <rect x="160" y="120" width="80" height="120" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2" rx="10"/>
+  
+  <!-- Arms -->
+  <rect x="100" y="130" width="30" height="100" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2" rx="15"/>
+  <rect x="270" y="130" width="30" height="100" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2" rx="15"/>
+  
+  <!-- Legs -->
+  <rect x="170" y="240" width="30" height="120" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2" rx="15"/>
+  <rect x="200" y="240" width="30" height="120" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2" rx="15"/>
+  
+  <!-- Feet -->
+  <ellipse cx="185" cy="370" rx="20" ry="15" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2"/>
+  <ellipse cx="215" cy="370" rx="20" ry="15" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2"/>
+  
+  <!-- Lesion markers (red dots) -->
+  <circle cx="180" cy="150" r="8" fill="#ef4444" opacity="0.8"/>
+  <circle cx="220" cy="180" r="6" fill="#ef4444" opacity="0.8"/>
+  <circle cx="190" cy="280" r="7" fill="#ef4444" opacity="0.8"/>
+  
+  <!-- Text -->
+  <text x="200" y="450" text-anchor="middle" fill="#64748b" font-family="Arial, sans-serif" font-size="16" font-weight="500">
+    Full Body Image
+  </text>
+  <text x="200" y="470" text-anchor="middle" fill="#94a3b8" font-family="Arial, sans-serif" font-size="12">
+    Click to upload your image
+  </text>
+</svg>
