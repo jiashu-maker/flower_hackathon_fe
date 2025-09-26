@@ -4,7 +4,7 @@ import ImageUpload from './ImageUpload'
 
 interface SkinImagePanelProps {
   image: string | null
-  onImageUpload: (image: string) => void
+  onImageUpload: (image: string, file?: File) => void
 }
 
 export default function SkinImagePanel({ image, onImageUpload }: SkinImagePanelProps) {

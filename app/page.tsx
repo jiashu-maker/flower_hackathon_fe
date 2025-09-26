@@ -8,35 +8,85 @@ import ResultsPanel from '@/components/ResultsPanel'
 export default function Home() {
   const [lesionPositions, setLesionPositions] = useState<Array<{ x: number; y: number; id: string }>>([])
   const [skinImage, setSkinImage] = useState<string | null>(null)
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null)
   const [inferenceResults, setInferenceResults] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(false)
 
+  const handleImageUpload = (imageDataUrl: string, file?: File) => {
+    setSkinImage(imageDataUrl)
+    if (file) {
+      setUploadedFile(file)
+    }
+  }
+
   const handleInference = async () => {
-    if (!skinImage) {
+    if (!uploadedFile) {
       alert('Please upload a skin image for analysis')
       return
     }
-
+    console.log('uploadedFile', uploadedFile)
     setIsLoading(true)
     
-    // Simulate AI inference delay
-    setTimeout(() => {
-      const mockResults = {
-        diagnosis: 'Melanoma',
-        confidence: 0.87,
-        alternativeDiagnoses: [
-          { condition: 'Nevus', confidence: 0.12 },
-          { condition: 'Basal Cell Carcinoma', confidence: 0.01 }
-        ],
-        recommendations: [
-          'Immediate dermatologist consultation recommended',
-          'Consider biopsy for definitive diagnosis',
-          'Monitor for any changes in size or color'
-        ]
+    try {
+      const formData = new FormData()
+      formData.append('file', uploadedFile)
+
+      const response = await fetch('http://0.0.0.0:8000/predict', {
+        method: 'POST',
+        body: formData,
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
       }
-      setInferenceResults(mockResults)
+
+      const data = await response.json()
+      
+      // Transform the API response to match our expected format
+      const transformedResults = {
+        diagnosis: data.predictions[data.predicted_class_index].class_name,
+        confidence: data.predictions[data.predicted_class_index].confidence,
+        alternativeDiagnoses: data.predictions
+          .filter((_: any, index: number) => index !== data.predicted_class_index)
+          .sort((a: any, b: any) => b.confidence - a.confidence)
+          .map((pred: any) => ({
+            condition: pred.class_name,
+            confidence: pred.confidence
+          })),
+        recommendations: generateRecommendations(data.predictions[data.predicted_class_index])
+      }
+
+      setInferenceResults(transformedResults)
+    } catch (error) {
+      console.error('Error during inference:', error)
+      alert('Error during analysis. Please try again.')
+    } finally {
       setIsLoading(false)
-    }, 2000)
+    }
+  }
+
+  const generateRecommendations = (primaryPrediction: any) => {
+    const recommendations = []
+    
+    if (primaryPrediction.class_name === 'melanoma') {
+      recommendations.push('Immediate dermatologist consultation recommended')
+      recommendations.push('Consider biopsy for definitive diagnosis')
+      recommendations.push('Monitor for any changes in size or color')
+    } else if (primaryPrediction.class_name === 'basal cell carcinoma') {
+      recommendations.push('Schedule dermatologist appointment within 2-4 weeks')
+      recommendations.push('Consider surgical removal if confirmed')
+      recommendations.push('Regular skin checks recommended')
+    } else if (primaryPrediction.class_name === 'melanocytic nevi') {
+      recommendations.push('Regular monitoring recommended')
+      recommendations.push('Annual dermatologist check-up')
+      recommendations.push('Watch for changes in size, color, or shape')
+    } else {
+      recommendations.push('Regular monitoring recommended')
+      recommendations.push('Annual dermatologist check-up')
+      recommendations.push('Continue good sun protection practices')
+    }
+
+    return recommendations
   }
 
   return (
@@ -81,7 +131,7 @@ export default function Home() {
               </h2>
               <SkinImagePanel 
                 image={skinImage}
-                onImageUpload={setSkinImage}
+                onImageUpload={handleImageUpload}
               />
             </div>
           </div>
@@ -90,7 +140,7 @@ export default function Home() {
           <div className="flex justify-center mb-6">
             <button
               onClick={handleInference}
-              disabled={!skinImage || isLoading}
+              disabled={!uploadedFile || isLoading}
               className="px-8 py-3 bg-medical-blue text-white rounded-lg font-medium hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
             >
               {isLoading ? 'Analyzing...' : 'Inference'}

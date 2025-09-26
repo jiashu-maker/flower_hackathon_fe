@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react'
 
 interface ImageUploadProps {
-  onImageUpload: (image: string) => void
+  onImageUpload: (image: string, file?: File) => void
   currentImage?: string | null
   label: string
   accept?: string
@@ -23,7 +23,7 @@ export default function ImageUpload({
       const reader = new FileReader()
       reader.onload = (e) => {
         const result = e.target?.result as string
-        onImageUpload(result)
+        onImageUpload(result, file)
       }
       reader.readAsDataURL(file)
     }
